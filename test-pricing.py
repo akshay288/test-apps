@@ -1,6 +1,5 @@
 import streamlit as st
 
-# Move plan_details to global scope
 plan_details = {
     "Free": {"base_price": 0, "credits": 3000, "browsers": 5},
     "Startup": {"base_price": 30, "credits": 18000, "browsers": 25},
@@ -52,13 +51,20 @@ def main():
     st.header(f"Selected Plan: {plan}")
     st.write(f"Base Price: ${plan_details[plan]['base_price']:.2f}")
     st.write(f"Included Credits: {plan_details[plan]['credits']} credits")
-    st.write(f"Used Credits: {used_credits:.2f} credits")
-    st.write(f"Overage Credits: {overage_credits:.2f} credits")
+
+    st.subheader("Calculation Details")
+    st.write(f"Credits Used for Data: {total_credits['gb']} GB x 6 credits/GB = {total_credits['gb'] * 6:.2f} credits")
+    st.write(f"Credits Used for Browser Hours: {total_credits['hours']} hours x 1 credit/hour = {total_credits['hours']:.2f} credits")
+    st.write(f"Total Used Credits: {used_credits:.2f} credits")
+    st.write(f"Overage Credits: {overage_credits:.2f} credits x $0.002 = ${overage_credits * 0.002:.2f}")
+    st.write(f"Extra Browsers: {extra_browsers} x $2.50 = ${extra_browsers * 2.50:.2f}")
+
     st.write(f"Included Browsers: {plan_details[plan]['browsers']}")
     st.write(f"Total Browsers: {total_browsers}")
-    st.write(f"Extra Browsers: {extra_browsers}")
     st.write(f"Total Data Usage: {total_gb} GB")
     st.write(f"Total Browser Hours: {total_browser_hours} hours")
+
+    st.subheader("Total Price")
     st.write(f"Total Price: ${total_price:.2f}")
 
 if __name__ == "__main__":
